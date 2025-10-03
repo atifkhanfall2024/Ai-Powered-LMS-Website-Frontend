@@ -1,6 +1,9 @@
+import Navbar from "./navbar"
 const Feed = ()=>{
     return(
-        <h1>Welcome To Feed Page</h1>
+        <>
+       <Navbar/>
+       </>
     )
 }
 

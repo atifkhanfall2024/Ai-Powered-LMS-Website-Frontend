@@ -4,6 +4,8 @@ import axios from "axios";
 import { BaseUrl } from "../utils/constant";
 
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
 const Auth = ()=>{
 
 
@@ -12,6 +14,7 @@ const Auth = ()=>{
     const [password , setpassword] = useState("")
     const [Role , setRole] = useState("")
     const [Error , setError] = useState('')
+    const [Loading , setLoading] = useState(false)
 
 
     const navigate = useNavigate()
@@ -30,9 +33,12 @@ const Auth = ()=>{
      //dispatch(addUser(res?.data))
      navigate('/login')
       //console.log(res.data);
-
+      setLoading(false)
+     toast.success('SignUp Success !')
 
      }catch(err){
+        setLoading(false)
+        toast.error(err?.response?.data?.message)
         setError(err?.response?.data || err.message)
         console.log(err?.response?.data || err.message);
      }
@@ -86,9 +92,9 @@ const Auth = ()=>{
          <p className="text-red-500">{Error}</p>
         <button
           type="submit"
-          className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition" onClick={HandleAuth}
+          className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition" disabled={Loading} onClick={HandleAuth}
         >
-          Sign Up
+         {Loading ? <ClipLoader size={30} color="white"/> : "Sign Up"}
         </button>
       </form>
 

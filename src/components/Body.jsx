@@ -17,7 +17,7 @@ const Body = ()=>{
 
           console.log(res.data);
           dispatch(addUser(res?.data))
-          navigate('/')
+          navigate('/feed')
 
        }catch(err){
         console.log(err.message);
