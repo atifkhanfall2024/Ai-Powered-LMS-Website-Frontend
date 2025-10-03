@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useState } from "react";
 import { BaseUrl } from "../utils/constant";
+import { useNavigate } from "react-router-dom";
 
 const Login = ()=>{
 
        const [Email , setEmail] = useState("")
         const [password , setpassword] = useState("")
         const [Error , setError] = useState("")
+
+        const navigate = useNavigate()
 
         const HandleLogin = async(e)=>{
            
@@ -18,6 +21,7 @@ const Login = ()=>{
             password
         } , {withCredentials:true})
         console.log(res.data);
+        navigate('/')
             }catch(err){
             setError(err?.response?.data || err.message)
         console.log(err?.response?.data || err.message);

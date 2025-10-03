@@ -2,6 +2,9 @@ import { useState } from "react";
 import Pic from "../assets/vc.jpg"
 import axios from "axios";
 import { BaseUrl } from "../utils/constant";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Redux/UserSlice";
+import { useNavigate } from "react-router-dom";
 const Auth = ()=>{
 
 
@@ -10,6 +13,9 @@ const Auth = ()=>{
     const [password , setpassword] = useState("")
     const [Role , setRole] = useState("")
     const [Error , setError] = useState('')
+
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
 
    async function HandleAuth(e){
@@ -21,8 +27,11 @@ const Auth = ()=>{
         password,
         role:Role
     }, {withCredentials:true})
-
+      
+     dispatch(addUser(res?.data))
+     navigate('/login')
       console.log(res.data);
+
 
      }catch(err){
         setError(err?.response?.data || err.message)
