@@ -2,8 +2,7 @@ import { useState } from "react";
 import Pic from "../assets/vc.jpg"
 import axios from "axios";
 import { BaseUrl } from "../utils/constant";
-import { useDispatch } from "react-redux";
-import { addUser } from "../Redux/UserSlice";
+
 import { useNavigate } from "react-router-dom";
 const Auth = ()=>{
 
@@ -14,7 +13,7 @@ const Auth = ()=>{
     const [Role , setRole] = useState("")
     const [Error , setError] = useState('')
 
-    const dispatch = useDispatch()
+
     const navigate = useNavigate()
 
 
@@ -28,9 +27,9 @@ const Auth = ()=>{
         role:Role
     }, {withCredentials:true})
       
-     dispatch(addUser(res?.data))
+     //dispatch(addUser(res?.data))
      navigate('/login')
-      console.log(res.data);
+      //console.log(res.data);
 
 
      }catch(err){
