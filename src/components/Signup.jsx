@@ -6,19 +6,22 @@ import { BaseUrl } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase";
+import { useDispatch } from "react-redux";
 const Auth = ()=>{
 
 
     const [name , setName] = useState("")
     const [Email , setEmail] = useState("")
     const [password , setpassword] = useState("")
-    const [Role , setRole] = useState("")
+    const [role , setrole] = useState("")
     const [Error , setError] = useState('')
     const [Loading , setLoading] = useState(false)
 
 
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
 
    async function HandleAuth(e){
         e.preventDefault()
@@ -28,10 +31,10 @@ const Auth = ()=>{
         fullName:name,
         email :Email,
         password,
-        role:Role
+        role
     }, {withCredentials:true})
       
-     //dispatch(addUser(res?.data))
+     dispatch(addUser(res?.data))
      navigate('/login')
       //console.log(res.data);
       setLoading(false)
@@ -44,6 +47,42 @@ const Auth = ()=>{
         console.log(err?.response?.data || err.message);
      }
     
+    }
+
+    const GoogleAuth = async(e)=>{
+           e.preventDefault()
+
+           try{
+           
+            // here i will call google auth of utils 
+
+            const response = await signInWithPopup(auth , provider)
+
+             if (!response?.user) {
+      throw new Error("Google sign-in failed. No user returned.");
+    }
+           // console.log(response?.user);
+            let user = response?.user
+            let fullName = user?.displayName
+            let email = user?.email
+
+
+            // now main thing is here that this data also push into database
+
+            const res = await axios.post(BaseUrl+'/google/auth' , {fullName , email , role} , {withCredentials:true})
+
+                 
+     dispatch(addUser(res?.data))
+     navigate('/')
+      //console.log(res.data);
+      //setLoading(false)
+     toast.success('SignUp Success !')
+
+           }catch(err){
+               toast.error(err?.response?.data?.message)
+        setError(err?.response?.data || err.message)
+        console.log(err?.response?.data || err.message);
+           }
     }
 
    return (
@@ -82,11 +121,11 @@ const Auth = ()=>{
 
         <div className="flex gap-4">
           <label className="flex items-center gap-2">
-            <input type="radio" name="role" value="student" checked = {Role === "student"} onChange={(e)=> setRole(e.target.value)}  />
+            <input type="radio" name="role" value="student" checked = {role === "student"} onChange={(e)=> setrole(e.target.value)}  />
             Student
           </label>
           <label className="flex items-center gap-2">
-            <input type="radio" name="role" value="educator" checked = {Role === "educator"} onChange={(e)=> setRole(e.target.value)} />
+            <input type="radio" name="role" value="educator" checked = {role === "educator"} onChange={(e)=> setrole(e.target.value)} />
             Educator
           </label>
         </div>
@@ -101,7 +140,7 @@ const Auth = ()=>{
 
       <div className="mt-6 text-center">
         <p className="text-gray-500">Or continue with</p>
-        <button className="w-full mt-2 border py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+        <button className="w-full mt-2 border py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition" onClick={GoogleAuth}>
           <img
             src="https://www.svgrepo.com/show/355037/google.svg"
             alt="Google"

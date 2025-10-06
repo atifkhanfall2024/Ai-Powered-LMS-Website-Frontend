@@ -4,6 +4,7 @@ import { BaseUrl } from "../utils/constant";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Forgot = ()=>{
 
@@ -54,6 +55,7 @@ const Forgot = ()=>{
           className="border border-gray-300 rounded-lg px-8 py-4 mb-4 w-[100%] focus:outline-none focus:ring-2 focus:ring-black"
           onChange={(e)=> setEmail(e.target.value)}
         />
+        <Link to = {'/login'}><p className=" mb-3">Back to login</p></Link>
         <p className="text-red-500 mb-3">{Error}</p>
         <button
           type="submit"
