@@ -78,7 +78,7 @@ useEffect(()=>{
 
 
     {/* Dashboard Button */}
-   {user?.role === "educator" ? <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition hidden lg:block">
+   {user?.role === "educator" ? <button className="bg-black text-white  px-4 py-2 border-2 border-white rounded-lg hover:bg-gray-800 transition hidden lg:block">
       Dashboard
     </button>: ''}
     {!user && <Link to={'/login'}><button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition hidden lg:block">
@@ -89,7 +89,7 @@ useEffect(()=>{
     {toogle && <button className="bg-white text-black px-4 py-2 rounded-lg hover:bg-gray-200 transition hidden lg:block" disabled ={Loading}  onClick={Logout}>
      {Loading ? <ClipLoader size={30} color="white"/>: "Logout" }
     </button>}
-    <GiHamburgerMenu className="w-[30px] h-[30px] lg:hidden block text-black cursor-pointer" onClick={()=> setShowHam(prev=>!prev)} />
+    <GiHamburgerMenu className="w-[30px] h-[30px] lg:hidden block text-white cursor-pointer" onClick={()=> setShowHam(prev=>!prev)} />
 
     <div className={`top-0 fixed left-0 w-[100vw] h-[100vh] bg-[#000000d6] flex items-center justify-center flex-col gap-5 z-10 lg:hidden ${ShowHam ? "translate-x-0 transition duration-600" : "translate-x-[-100%] transition duration-600"}`}>
       <RxCross2  className="w-[35px] h-[35px] text-white absolute top-5 right-[7%] cursor-pointer" onClick={()=> setShowHam(prev=>!prev)}/>

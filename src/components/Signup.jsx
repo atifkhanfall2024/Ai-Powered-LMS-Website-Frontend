@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../utils/firebase";
 import { useDispatch } from "react-redux";
+import { addUser } from "../Redux/UserSlice";
 const Auth = ()=>{
 
 
@@ -56,15 +57,15 @@ const Auth = ()=>{
            
             // here i will call google auth of utils 
 
-            const response = await signInWithPopup(auth , provider)
+          const response = await signInWithPopup(auth, provider);
 
-             if (!response?.user) {
+    if (!response?.user) {
       throw new Error("Google sign-in failed. No user returned.");
     }
-           // console.log(response?.user);
-            let user = response?.user
-            let fullName = user?.displayName
-            let email = user?.email
+
+    const googleUser = response.user;
+    const fullName = googleUser.displayName;
+    const email = googleUser.email;
 
 
             // now main thing is here that this data also push into database
@@ -73,7 +74,7 @@ const Auth = ()=>{
 
                  
      dispatch(addUser(res?.data))
-     navigate('/')
+     navigate('/feed')
       //console.log(res.data);
       //setLoading(false)
      toast.success('SignUp Success !')

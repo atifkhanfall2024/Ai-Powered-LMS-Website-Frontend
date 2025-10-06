@@ -7,6 +7,8 @@ import { addUser } from "../Redux/UserSlice";
 import { ClipLoader } from "react-spinners";
 import { toast } from "react-toastify";
 import logo from "../assets/vc.jpg"
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase";
 const Login = ()=>{
 
        const [Email , setEmail] = useState("")
@@ -39,6 +41,45 @@ const Login = ()=>{
         console.log(err?.response?.data || err.message);
             }
         }
+
+        // google login 
+
+          const GoogleAuth = async(e)=>{
+                   e.preventDefault()
+        
+                   try{
+                   
+                    // here i will call google auth of utils 
+        
+                    const response = await signInWithPopup(auth, provider)
+        
+                     if (!response?.user) {
+              throw new Error("Google sign-in failed. No user returned.");
+            }
+                   // console.log(response?.user);
+                    let user = response?.user
+                    let fullName = user?.displayName
+                    let email = user?.email
+                    
+        
+                    // now main thing is here that this data also push into database
+        
+                    const res = await axios.post(BaseUrl+'/google/auth' , {fullName , email } , {withCredentials:true})
+        
+                         
+             dispatch(addUser(res?.data))
+             navigate('/feed')
+              //console.log(res.data);
+              //setLoading(false)
+             toast.success('Login Success !')
+        
+                   }catch(err){
+                       toast.error(err?.response?.data?.message)
+                setError(err?.response?.data || err.message)
+                console.log(err?.response?.data || err.message);
+                   }
+            }
+
  return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
       <div className="flex w-full max-w-4xl bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -78,7 +119,7 @@ const Login = ()=>{
 
           <div className="mt-6 text-center">
             <p className="text-gray-500">Or continue with</p>
-            <button className="w-full mt-2 border py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition">
+            <button className="w-full mt-2 border py-2 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-50 transition" onClick={GoogleAuth}>
               <img
                 src="https://www.svgrepo.com/show/355037/google.svg"
                 alt="Google"

@@ -1,10 +1,43 @@
 import Navbar from "./navbar"
+import Home1 from "../assets/home1.jpg"
 const Feed = ()=>{
-    return(
-        <>
-       <Navbar/>
-       </>
-    )
+return (
+  <>
+    <Navbar />
+    <div className="relative w-full text-center overflow-hidden">
+      {/* Background Image */}
+      <img
+        src={Home1}
+        alt="Profile"
+        className="w-full object-cover"
+      />
+
+      {/* Text Overlay */}
+      <div className="absolute top-20 md:top-[10%] left-1/2 transform -translate-x-1/2 z-10">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+          Grow Your Career to New Heights
+        </h1>
+        <p className="text-lg md:text-2xl text-gray-100 mt-4 drop-shadow-md lg:absolute">
+          Empower your learning. Shape your future with confidence.
+        </p>
+
+        {/* Buttons */}
+        <div className="mt-8 flex justify-center gap-4">
+          <button className="bg-black border-2 border-white text-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-black transition duration-300">
+            View All Courses
+          </button>
+          <button className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition duration-300">
+            Search with AI
+          </button>
+        </div>
+      </div>
+    </div>
+  </>
+);
+
+
+
+
 }
 
 export default Feed
