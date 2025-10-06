@@ -4,6 +4,7 @@ import { BaseUrl } from "../utils/constant"
 import { useDispatch } from "react-redux"
 import { addUser } from "../Redux/UserSlice"
 import { useEffect } from "react"
+import Navbar from "./navbar"
 
 const Body = ()=>{
 
@@ -32,6 +33,7 @@ const Body = ()=>{
 
     return(
         <div>
+            <Navbar/>
         <Outlet/>
         </div>
     )

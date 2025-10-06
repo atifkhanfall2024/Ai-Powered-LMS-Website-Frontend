@@ -18,10 +18,10 @@ const Login = ()=>{
         const dispatch = useDispatch()
 
         const HandleLogin = async(e)=>{
-           
+            e.preventDefault()
             try{
-                       e.preventDefault()
-
+                      
+           setLoading(true)
         const res = await axios.post(BaseUrl+'/login' , {
             email:Email ,
             password
@@ -73,6 +73,7 @@ const Login = ()=>{
             >
               {Loading ? <ClipLoader size={30} color="white" /> : "Login"}
             </button>
+            <Link to={'/forgot'}><a href="/forgot">Forgot Password ?</a></Link>
           </form>
 
           <div className="mt-6 text-center">

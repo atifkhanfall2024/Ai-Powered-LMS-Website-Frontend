@@ -23,6 +23,7 @@ const Auth = ()=>{
    async function HandleAuth(e){
         e.preventDefault()
      try{
+         setLoading(true)
           const res = await axios.post(BaseUrl+'/signup' ,{
         fullName:name,
         email :Email,

@@ -41,7 +41,7 @@ useEffect(()=>{
     Logout()
 } , [])
  
-
+ 
  return(
 <div className="w-[100%] bg-[#00000047] h-[70px] fixed top-0 px-[40px] py-[10px] flex items-center justify-between z-10">
   {/* Left side - Logo */}
@@ -71,9 +71,9 @@ useEffect(()=>{
   <button className="w-full text-left px-4 py-2 text-white hover:bg-gray-800 transition">
     My Courses
   </button>
-  <button className="w-full text-left px-4 py-2 text-white hover:bg-gray-800 transition">
+ <Link to={'/profile'}> <button className="w-full text-left px-4 py-2 text-white hover:bg-gray-800 transition">
     My Profile
-  </button>
+  </button></Link>
 </div>}
 
 
@@ -101,9 +101,9 @@ useEffect(()=>{
      <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
     My Courses
   </button>
-  <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+  <Link to={'/profile'}><button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
     My Profile
-  </button>
+  </button></Link>
     {user?.role === "educator" ? <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
       Dashboard
     </button>: ''}
@@ -119,7 +119,7 @@ useEffect(()=>{
 </div>
 
 
-    )
+ )
 }
 
 export default Navbar
