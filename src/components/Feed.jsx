@@ -1,5 +1,8 @@
 import Navbar from "./navbar"
 import Home1 from "../assets/home1.jpg"
+import ai from "../assets/ai.png"
+import search from "../assets/SearchAi - Copy.png"
+import { SiCoursera } from "react-icons/si";
 const Feed = ()=>{
 return (
   <>
@@ -22,12 +25,14 @@ return (
         </p>
 
         {/* Buttons */}
-        <div className="mt-8 flex justify-center gap-4">
-          <button className="bg-black border-2 border-white text-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-black transition duration-300">
-            View All Courses
+        <div className="mt-16 flex justify-center gap-4">
+          <button className="bg-black  flex gap-2 border-2 border-white text-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-black transition duration-300">
+            View All Courses <SiCoursera className="h-[20px] w-[20px] rounded-full hidden lg:block"  />
+
           </button>
-          <button className="bg-white text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition duration-300">
-            Search with AI
+          <button className="bg-white flex gap-2 align-center text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition duration-300">
+            Search with AI <img src={ai} className="h-[20px] w-[20px] rounded-full hidden lg:block"/>
+            <img src={search} className="h-[20px] w-[20px] rounded-full  lg:hidden"  />
           </button>
         </div>
       </div>

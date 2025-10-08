@@ -12,6 +12,7 @@ import Profile from './components/Profile'
 import Forgot from './components/ForgotPassward'
 import VerifyOTp from './components/VerifyOtp'
 import ChangePassword from './components/ChangePassward'
+import EditProfile from './components/EditProfile'
 
 function App() {
   return(
@@ -29,6 +30,7 @@ function App() {
         <Route path='/feed' element={<Feed/>}/>
       
           <Route path='/profile' element={<Profile/>} />
+          <Route path='/editprofile' element={<EditProfile/>} />
     </Route>
    </Routes>
 <ToastContainer position="top-right" autoClose={3000} />

@@ -37,9 +37,8 @@ const Logout = async(e)=>{
     }
 }
 
-useEffect(()=>{
-    Logout()
-} , [])
+
+    
  
  
  return(
@@ -59,7 +58,7 @@ useEffect(()=>{
     {/* Profile Icon */}
      
     <img
-      src="https://scontent-ams2-1.xx.fbcdn.net/v/t51.75761-15/515130132_18019037621711656_8274955609755911088_n.webp?stp=dst-jpg_tt6&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=Ns6TOKA92hQQ7kNvwG156xV&_nc_oc=AdlRCxnPmgEAA4HjMG7T3hGuOJN-fseJ-G0ICjY-Y5Ia7MMPb-I0FXb5imZeTBQlV-M&_nc_zt=23&_nc_ht=scontent-ams2-1.xx&_nc_gid=L36IzIFjtKyC9vyFl41MNg&oh=00_AfecruRba_Yz6lCddS_2Zmmzs2IxsSNojTzApGU81GD_Iw&oe=68E71420" // sample profile image
+      src={user?.photoUrl} // sample profile image
       alt="Profile"
       className="w-10 h-10 rounded-full border-2 border-white cursor-pointer hidden lg:block" onClick={()=> setShow(prev=>!prev)}
     />
