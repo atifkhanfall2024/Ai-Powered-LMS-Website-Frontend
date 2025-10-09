@@ -3,6 +3,8 @@ import Home1 from "../assets/home1.jpg"
 import ai from "../assets/ai.png"
 import search from "../assets/SearchAi - Copy.png"
 import { SiCoursera } from "react-icons/si";
+import Section from "./section";
+import ExploreCoursesSection from "./ExploreCourses";
 const Feed = ()=>{
 return (
   <>
@@ -35,7 +37,10 @@ return (
             <img src={search} className="h-[20px] w-[20px] rounded-full  lg:hidden"  />
           </button>
         </div>
+        
       </div>
+      <Section/>
+      <ExploreCoursesSection/>
     </div>
   </>
 );

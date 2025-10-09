@@ -6,14 +6,14 @@ import { addUser } from "../Redux/UserSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-
+import { FaArrowLeft } from "react-icons/fa";
 const EditProfile = () => {
   const user = useSelector((store) => store?.user);
   const [fullName, setFullName] = useState(user?.fullName || "");
   const [description, setDescription] = useState(user?.description || "");
   const [photoUrl, setPhotoUrl] = useState(null);
   const [Loading , setLoading]=  useState(false)
-  const[Error , setError] = useState('')
+  const[Error , setError] = useState()
 
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -56,7 +56,7 @@ const EditProfile = () => {
     <div className="bg-gray-100 min-h-screen flex flex-col items-center pt-24">
       <div className="bg-white shadow-lg rounded-2xl p-6 w-[400px] flex flex-col items-center">
         <h1 className="text-2xl bold mb-3">Edit Profile</h1>
-
+    <FaArrowLeft className="absolute left-[38%] top-[25%] w-[28px] h-[22px] cursor-pointer " onClick={()=> navigate('/profile')} />
         {/* Avatar Preview */}
         <img
           src={user?.photoUrl}
