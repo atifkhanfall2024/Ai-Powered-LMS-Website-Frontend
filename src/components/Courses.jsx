@@ -1,15 +1,35 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FaEdit } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { BaseUrl } from "../utils/constant";
+import { addCourse } from "../Redux/CourseSlice";
+import axios from "axios";
 const Create_Courses = ()=>{
 
-   
     const navigate = useNavigate()
     const courses = useSelector(store=>store?.course)
-    if(!courses){
-        return null
-    }
+    const user = useSelector(store=>store?.user)
+    const dispatch = useDispatch()
+        useEffect(()=>{
+         if (!user || Object.keys(user).length === 0) return;
+
+        const creator_courses = async()=>{
+           
+            try{
+                 const res = await axios.get(BaseUrl+'/getcreator/courses' , {withCredentials:true})
+          
+            dispatch(addCourse(res?.data))
+            }catch(err){
+                console.log(err?.response?.data || err?.message);
+            }
+            
+
+        }
+      
+       creator_courses()
+    } , [user])
     return(
 <div className="mt-20 mx-auto w-[80%] bg-white rounded-xl shadow-lg p-5">
   {/* Top Section - Button */}
@@ -29,7 +49,7 @@ const Create_Courses = ()=>{
   </div>
 
   {/* Course Row */}
-  {courses.map((items , index)=>(
+  {Array.isArray(courses) && courses.length > 0 ? (courses.map((items , index)=>(
   <div key={index} className="grid grid-cols-4 items-center py-3 border-b hover:bg-gray-50 transition text-sm">
     {/* Course image + name */}
     <div className="flex items-center space-x-3">
@@ -46,17 +66,23 @@ const Create_Courses = ()=>{
 
     {/* Status */}
     <div>
-      <span className="px-3 py-1 text-xs rounded-full bg-red-100 text-red-700 font-medium">
-        Draft
+      <span className={`px-3 py-1 text-xs rounded-full  ${items.isPublished ? 'bg-green-100  text-green-700' :'bg-red-100  text-red-700' } font-medium`}>
+        {items.isPublished? 'Published ' : 'Draft'}
       </span>
     </div>
 
     {/* Actions */}
     <div className="flex gap-2">
-      <FaEdit className="text-black text-2xl hover:underline"/>
+     <FaEdit 
+  className="text-black text-2xl hover:underline cursor-pointer" 
+  onClick={() => navigate(`/edit/course/${items?._id}`)} 
+/>
     
     </div>
-  </div>))}
+  </div>))):(
+  <p className="text-gray-500 text-center py-4">No courses found</p>
+)}
+
 </div>
 
 

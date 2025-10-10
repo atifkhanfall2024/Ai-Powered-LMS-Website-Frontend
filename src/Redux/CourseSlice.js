@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const CourseSlice = createSlice({
-    initialState:null ,
+    initialState:[] ,
     name:'course',
 
 
