@@ -11,14 +11,14 @@ const EditCourses = () => {
     const dispatch = useDispatch()
    
     const {id} = useParams()
-    const [isPublished , setisPublished] = useState(true)
+    const [isPublished , setisPublished] = useState(false)
     const [course_title ,  setcourse_title] = useState('')
     const [course_subtitle ,  setcourse_subtitle] = useState('')
     const [course_Category , setcourse_Category] = useState('')
     const [course_level , setcourse_level] = useState('')
     const [description , setDescription] = useState('')
     const[course_price , setcourse_price] = useState()
-    
+    const [frontendimg , setfrontendimg] = useState()
     const [course_Thumbnails , setcourse_Thumbnails] = useState()
     let thumb = useRef()
     const navigate = useNavigate()
@@ -37,11 +37,41 @@ const EditCourses = () => {
     useEffect(()=>{
     getcourse()
     } ,[])
- const singlecourse = useSelector(store=>store?.single)
+
+// handle img
+
+const HandleThumb = (e)=>{
+    const file = e.target.files[0]
+    setcourse_Thumbnails(file)
+    setfrontendimg(URL.createObjectURL(file))
+}
+
+ 
  
    // console.log(singlecourse);
    // console.log(id);
-   
+ // update api
+ console.log(isPublished);
+ const UpdateCourse = async(e)=>{
+    const formData = new FormData()
+    formData.append('course_title' , course_title)
+    formData.append('course_Category' , course_Category)
+    formData.append( 'course_Thumbnails' , course_Thumbnails)
+    formData.append('course_level' , course_level)
+    formData.append('course_subtitle' , course_subtitle)
+    formData.append('course_price' , course_price)
+    formData.append('description' , description)
+    formData.append( 'isPublished', isPublished)
+        e.preventDefault()
+    try{
+         const res = await axios.post(BaseUrl+'/update/'+id , formData , {withCredentials:true})
+         dispatch(addSingleUser(res?.data))
+         console.log(res?.data);
+         navigate('/create/courses')
+    }catch(err){
+            console.log(err?.message);
+    }
+ }
   return (
     <div className="w-full min-h-screen flex justify-center items-start bg-gray-100 pt-20">
       <div className="bg-white w-[80%] md:w-[70%] lg:w-[60%] rounded-2xl shadow-lg p-8 relative">
@@ -60,10 +90,10 @@ const EditCourses = () => {
         <h3 className="text-lg font-semibold mb-3">Basic Course Information</h3>
 
         <div className="flex flex-wrap gap-4 mb-5">
-         {isPublished ? <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"  onClick={()=>setisPublished(prev=>!prev)}>
+         {isPublished ? <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"  onClick={()=>setisPublished(prev=>!prev)}>
+            Click to unPublish
+          </button>:  <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"  onClick={()=>setisPublished(prev=>!prev)}>
             Click to Publish
-          </button>:  <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-green-600"  onClick={()=>setisPublished(prev=>!prev)}>
-            Click to UnPublish
           </button>}
           
           <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" value={false}>
@@ -136,18 +166,23 @@ const EditCourses = () => {
   className="border-2 border-dashed border-gray-300 rounded-md flex flex-col justify-center items-center py-10 cursor-pointer"
   onClick={() => thumb.current.click()}
 >
-  <input type="file" hidden ref={thumb} accept="image/*" />
-  <img src="" alt="" />
+  <input type="file" hidden ref={thumb} accept="image/*" onChange={HandleThumb} />
+ <img
+  className="w-48 h-48 object-cover rounded-lg shadow-md"
+  src={frontendimg}
+  alt="Course Thumbnail"
+/>
+
   <p className="text-gray-500 mt-2">Course Thumbnail</p>
 </div>
 
 
           {/* Buttons */}
           <div className="flex justify-end gap-4 mt-5">
-            <button className="bg-gray-300 text-black px-5 py-2 rounded-md hover:bg-gray-400" onClick={navigate('/create/courses')}>
+            <button className="bg-gray-300 text-black px-5 py-2 rounded-md hover:bg-gray-400">
               Cancel
             </button>
-            <button className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600">
+            <button className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600" onClick={UpdateCourse} >
               Save
             </button>
           </div>
