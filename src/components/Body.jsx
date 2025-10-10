@@ -2,7 +2,7 @@ import axios from "axios"
 import { Outlet, useNavigate } from "react-router-dom"
 import { BaseUrl } from "../utils/constant"
 import { useDispatch } from "react-redux"
-import { addUser } from "../Redux/UserSlice"
+import { addUser, removeUser } from "../Redux/UserSlice"
 import { useEffect } from "react"
 import Navbar from "./navbar"
 
@@ -18,17 +18,22 @@ const Body = ()=>{
 
           console.log(res.data);
           dispatch(addUser(res?.data))
-          navigate('/feed')
+          
+
+         if (location.pathname === "/") {
+        navigate("/feed");
+      }
+      
 
        }catch(err){
         console.log(err.message);
-            navigate('/login')
-       }
+        dispatch(removeUser())
+        navigate('/login')
         
-    }
+    }}
 
     useEffect(()=>{
-        GetUser()
+        GetUser()  
     } ,[])
 
     return(

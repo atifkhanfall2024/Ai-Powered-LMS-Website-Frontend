@@ -20,9 +20,17 @@ const [Show , setShow] = useState(false)
 const [ShowHam , setShowHam] = useState(false)
 // calling logout api
 
+   useEffect(() => {
+    if (user) settoogle(true);
+    else settoogle(false);
+  }, [user]);
+
+
+
 const Logout = async(e)=>{
      e.preventDefault()
     try{
+        setLoading(true)
         const result = await axios.post(BaseUrl+'/logout' , {} , {withCredentials:true})
         console.log(result?.data);
         dispatch(removeUser())
@@ -49,6 +57,7 @@ const Logout = async(e)=>{
     src={logo}   // replace with your logo path
     alt="Logo"
     className="h-10 w-auto cursor-pointer"
+    onClick={()=>navigate(user ? '/feed':"/login")}
   />
 </div>
 
@@ -77,9 +86,15 @@ const Logout = async(e)=>{
 
 
     {/* Dashboard Button */}
-   {user?.role === "educator" ? <button className="bg-black text-white  px-4 py-2 border-2 border-white rounded-lg hover:bg-gray-800 transition hidden lg:block">
-      Dashboard
-    </button>: ''}
+  {user?.role === "educator" ? 
+  <button
+    className="bg-black text-white px-4 py-2 border-2 border-white rounded-lg hover:bg-gray-800 transition hidden lg:block"
+    onClick={() => navigate('/dash')}
+  >
+    Dashboard
+  </button>
+: ''}
+
     {!user && <Link to={'/login'}><button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition hidden lg:block">
       Login
     </button></Link>}
@@ -103,9 +118,17 @@ const Logout = async(e)=>{
   <Link to={'/profile'}><button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
     My Profile
   </button></Link>
-    {user?.role === "educator" ? <button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
-      Dashboard
-    </button>: ''}
+{user?.role === "educator" ? 
+  <button
+    className="bg-black text-white px-4 py-2 border-2 border-white rounded-lg hover:bg-gray-800 transition hidden lg:block"
+    onClick={() => navigate('/dash')}
+  >
+    Dashboard
+  </button>
+: ''}
+
+
+
     {!user && <Link to={'/login'}><button className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition">
       Login
     </button></Link>}

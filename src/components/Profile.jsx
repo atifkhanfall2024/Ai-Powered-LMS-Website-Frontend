@@ -25,7 +25,7 @@ const Profile = ()=>{
         />
          <FaArrowLeft className="absolute left-[38%] top-[25%] w-[28px] h-[22px] cursor-pointer " onClick={()=> navigate('/feed')} />
         <h2 className="text-xl font-semibold text-gray-800 mb-2">
-          {user?.fullName.toUpperCase()}
+          {user?.fullName}
         </h2>
 
         <button className="bg-black text-white px-4 py-2 rounded-lg mb-4 hover:bg-blue-700 transition-all" onClick={()=> navigate('/editprofile')}>
