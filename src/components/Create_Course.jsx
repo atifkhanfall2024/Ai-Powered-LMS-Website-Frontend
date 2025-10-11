@@ -5,12 +5,15 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { addCourse } from "../Redux/CourseSlice"
 import { FaArrowLeft } from "react-icons/fa";
+import { toast } from "react-toastify"
+import { ClipLoader } from "react-spinners"
 
 const Create_Courses = ()=>{
 
     const [course_title , setcourse_title] = useState('')
     const [course_Category , setcourse_Category] = useState('')
     const [Error , setError] = useState('')
+    const [Loading , setLoading] = useState(false)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -18,6 +21,7 @@ const Create_Courses = ()=>{
 
     const HandleCourse = async(e)=>{
               e.preventDefault()
+              setLoading(true)
     try{
                 
         const res = await axios.post(BaseUrl+'/create/course' , {
@@ -26,10 +30,14 @@ const Create_Courses = ()=>{
         } , {withCredentials:true})
         //console.log(res?.data);
         dispatch(addCourse(res?.data))
+        setLoading(false)
+        toast.success('Create Course Success')
         navigate('/create/courses')
     }catch(err){
         console.log(err?.response?.data || err?.message);
         setError(err?.response?.data || err?.message)
+        setLoading(false)
+        toast.error(err?.response?.data || err?.message)
     }
     }
 
@@ -75,8 +83,8 @@ const Create_Courses = ()=>{
   </div>
      <p className="text-red-500 my-[10px]">{Error}</p>
   {/* Submit Button */}
-  <button className="bg-black text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-gray-900 hover:scale-105 transition-all duration-300" onClick={HandleCourse}>
-    Create 
+  <button className="bg-black text-white font-semibold px-6 py-2 rounded-lg shadow-md hover:bg-gray-900 hover:scale-105 transition-all duration-300" onClick={HandleCourse} disabled={Loading}>
+    { Loading ? <ClipLoader size={30} color="white"/>   : 'Create'} 
   </button>
 </div>
 

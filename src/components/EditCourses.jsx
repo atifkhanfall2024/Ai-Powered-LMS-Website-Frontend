@@ -5,6 +5,8 @@ import { useNavigate, useParams } from "react-router-dom"
 import { BaseUrl } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import { addSingleUser } from "../Redux/SingleCourse";
+import { toast } from "react-toastify";
+import { ClipLoader } from "react-spinners";
 const EditCourses = () => {
 
     // get data by course
@@ -20,6 +22,7 @@ const EditCourses = () => {
     const[course_price , setcourse_price] = useState()
     const [frontendimg , setfrontendimg] = useState()
     const [course_Thumbnails , setcourse_Thumbnails] = useState()
+    const [Loading , setLoading] = useState(false)
     let thumb = useRef()
     const navigate = useNavigate()
  const user = useSelector(store=>store?.user)
@@ -63,15 +66,41 @@ const HandleThumb = (e)=>{
     formData.append('description' , description)
     formData.append( 'isPublished', isPublished)
         e.preventDefault()
+        setLoading(true)
     try{
          const res = await axios.post(BaseUrl+'/update/'+id , formData , {withCredentials:true})
          dispatch(addSingleUser(res?.data))
          console.log(res?.data);
+         setLoading(false)
+         toast.success('Update Course Success')
          navigate('/create/courses')
     }catch(err){
             console.log(err?.message);
+            setLoading(false)
+            toast.error('Update Course Error')
     }
  }
+
+ // remove course api
+
+ const RemoveCourse = async(e)=>{
+       e.preventDefault()
+       setLoading(true)
+  try{
+
+    const res = await axios.delete(BaseUrl+'/delete/'+id , {withCredentials:true})
+    console.log(res?.data);
+    setLoading(false)
+    toast.success('Remove Course Success')
+    navigate('/create/courses')
+
+  }catch(err){
+      console.log(err?.response?.data);
+      setLoading(false)
+      toast.error('Error To Remove Course')
+  }
+ }
+
   return (
     <div className="w-full min-h-screen flex justify-center items-start bg-gray-100 pt-20">
       <div className="bg-white w-[80%] md:w-[70%] lg:w-[60%] rounded-2xl shadow-lg p-8 relative">
@@ -96,8 +125,8 @@ const HandleThumb = (e)=>{
             Click to Publish
           </button>}
           
-          <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" value={false}>
-            Remove Course
+          <button className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" disabled={Loading} onClick={RemoveCourse} >
+           {Loading ? <ClipLoader size={30} color="white"/> : 'Remove Course' }
           </button>
         </div>
 
@@ -182,8 +211,8 @@ const HandleThumb = (e)=>{
             <button className="bg-gray-300 text-black px-5 py-2 rounded-md hover:bg-gray-400">
               Cancel
             </button>
-            <button className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600" onClick={UpdateCourse} >
-              Save
+            <button className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600" disabled={Loading} onClick={UpdateCourse} >
+             {Loading ? <ClipLoader size={30} color="white"/> : 'Save' }
             </button>
           </div>
         </form>
