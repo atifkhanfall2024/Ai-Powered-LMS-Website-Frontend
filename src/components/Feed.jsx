@@ -5,6 +5,8 @@ import search from "../assets/SearchAi - Copy.png"
 import { SiCoursera } from "react-icons/si";
 import Section from "./section";
 import ExploreCoursesSection from "./ExploreCourses";
+import PublishedCourses from "./PublishedCourses";
+
 const Feed = ()=>{
 return (
   <>
@@ -18,7 +20,7 @@ return (
       />
 
       {/* Text Overlay */}
-      <div className="absolute top-20 md:top-[10%] left-1/2 transform -translate-x-1/2 z-10">
+      <div className="absolute top-20 md:top-[5%] left-1/2 transform -translate-x-1/2 z-10">
         <h1 className="text-4xl md:text-6xl font-extrabold text-white drop-shadow-lg">
           Grow Your Career to New Heights
         </h1>
@@ -41,6 +43,12 @@ return (
       </div>
       <Section/>
       <ExploreCoursesSection/>
+<div className="flex justify-center">
+  <PublishedCourses />
+</div>
+
+
+   
     </div>
   </>
 );

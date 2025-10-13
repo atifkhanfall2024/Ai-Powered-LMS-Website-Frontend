@@ -211,7 +211,7 @@ const HandleThumb = (e)=>{
             <button className="bg-gray-300 text-black px-5 py-2 rounded-md hover:bg-gray-400">
               Cancel
             </button>
-            <button className="bg-blue-500 text-white px-5 py-2 rounded-md hover:bg-blue-600" disabled={Loading} onClick={UpdateCourse} >
+            <button className="bg-black text-white px-5 py-2 rounded-md hover:bg-blue-600" disabled={Loading} onClick={UpdateCourse} >
              {Loading ? <ClipLoader size={30} color="white"/> : 'Save' }
             </button>
           </div>
