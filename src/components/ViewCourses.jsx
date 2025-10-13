@@ -8,6 +8,37 @@ const ViewCourses = ()=>{
 
     const navigate = useNavigate()
     const [courses , setcourses] = useState([])
+    const [category , setcategory] = useState([])
+    const [applyfilter , setapplyfilter] = useState([])
+
+    // use logics for category
+
+const toggleCategory = (e) => {
+  setcategory([e.target.value])  // Always keep only one selected category
+}
+
+
+
+ // now filter those one which checked
+
+const applydata = ()=>{
+    let copydata = courses?.slice()
+      if(category.length>0){
+        copydata = copydata.filter(c=>category.includes(c.course_Category))
+      }
+      setapplyfilter(copydata)
+}
+
+   useEffect(()=>{
+    setapplyfilter(courses)
+   },[courses])
+
+   useEffect(()=>{
+    applydata()
+   } ,[category])
+
+   console.log( applyfilter);
+
   const PublishedApi = async()=>{
 
       try{
@@ -50,39 +81,39 @@ const ViewCourses = ()=>{
       <h3 className="font-medium mb-3 text-gray-300">Categories</h3>
       <div className="space-y-2">
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='Web Development' className="text-blue-500" />
           <span>Web Development</span>
         </label>
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='mobile-development' className="text-blue-500" />
           <span>Mobile Development</span>
         </label>
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='data-science' className="text-blue-500" />
           <span>Data Science</span>
         </label>
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" value='machine-learning' onChange={toggleCategory} name="category" className="text-blue-500" />
           <span>Machine Learning</span>
         </label>
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
-          <span>Cybersecurity</span>
+          <input type="radio" value='cyber-security' onChange={toggleCategory} name="category" className="text-blue-500" />
+          <span>cyber-security</span>
         </label>
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='Artificial Intelligence' className="text-blue-500" />
           <span>Artificial Intelligence</span>
         </label>
           <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='Graphic Designing' className="text-blue-500" />
           <span>Graphic Designing</span>
         </label>
           <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
-          <span>Cloud Computing</span>
+          <input type="radio" name="category" onChange={toggleCategory} value='Cloud Computing' className="text-blue-500" />
+          <span>cloud-computing</span>
         </label>
           <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='Other' className="text-blue-500" />
           <span>Other</span>
         </label>
       </div>
@@ -90,7 +121,7 @@ const ViewCourses = ()=>{
   </div>
 
  <div className="flex flex-wrap justify-center gap-6 p-10 mt-10">
-  {courses.map((c, index) => (
+  {applyfilter.map((c, index) => (
     <div
       key={index}
       className="w-64 h-64 bg-white rounded-xl shadow-md p-4 flex flex-col justify-between hover:scale-105 transition"
