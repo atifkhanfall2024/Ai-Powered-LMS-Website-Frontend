@@ -6,8 +6,10 @@ import { SiCoursera } from "react-icons/si";
 import Section from "./section";
 import ExploreCoursesSection from "./ExploreCourses";
 import PublishedCourses from "./PublishedCourses";
+import { useNavigate } from "react-router-dom";
 
 const Feed = ()=>{
+  const navigate = useNavigate()
 return (
   <>
     <Navbar />
@@ -30,11 +32,11 @@ return (
 
         {/* Buttons */}
         <div className="mt-16 flex justify-center gap-4">
-          <button className="bg-black  flex gap-2 border-2 border-white text-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-black transition duration-300">
+          <button className="bg-black  flex gap-2 border-2 border-white text-white px-6 py-2 rounded-full font-medium hover:bg-white hover:text-black transition duration-300" onClick={()=> navigate('/view/courses')}>
             View All Courses <SiCoursera className="h-[20px] w-[20px] rounded-full hidden lg:block"  />
 
           </button>
-          <button className="bg-white flex gap-2 align-center text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition duration-300">
+          <button className="bg-white flex gap-2 align-center text-black px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition duration-300" onClick={()=> navigate('/view/courses')}>
             Search with AI <img src={ai} className="h-[20px] w-[20px] rounded-full hidden lg:block"/>
             <img src={search} className="h-[20px] w-[20px] rounded-full  lg:hidden"  />
           </button>

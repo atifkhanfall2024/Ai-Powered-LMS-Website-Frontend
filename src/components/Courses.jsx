@@ -31,7 +31,7 @@ const Create_Courses = ()=>{
        creator_courses()
     } , [user])
     return(
-<div className="mt-20 mx-auto w-[80%] bg-white rounded-xl shadow-lg p-5">
+<div className="mt-20 mx-auto w-[80%] bg-white  rounded-xl shadow-lg p-5">
   {/* Top Section - Button */}
   <div className="flex justify-between items-center mb-5">
     <h2 onClick={()=>navigate('/dash')} className="text-xl font-semibold text-gray-800 cursor-pointer"><FaArrowLeft /></h2>

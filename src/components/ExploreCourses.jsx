@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 
 
 const ExploreCoursesSection = () => {
 
+   const navigate = useNavigate()
 
   return (
     <section className="flex flex-col md:flex-row justify-between items-center gap-10 p-10 bg-white">
@@ -13,7 +15,7 @@ const ExploreCoursesSection = () => {
           learn new technologies, and build your career in the tech world. 
           Join thousands of learners today.
         </p>
-        <button className="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300">
+        <button className="bg-black text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-800 transition duration-300" onClick={()=>navigate('/view/courses')}>
           Explore Courses
         </button>
       </div>

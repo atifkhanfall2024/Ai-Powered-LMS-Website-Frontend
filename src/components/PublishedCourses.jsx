@@ -34,7 +34,7 @@ const PublishedCourses = ()=>{
 
   <div className="w-full flex justify-center">
     <div className="w-[100%] flex flex-wrap gap-6 justify-start items-start">
-      {Courses.slice(0,6).map((course, index) => (
+      {Courses.slice(0,4).map((course, index) => (
         <Cards key={index} data={course} />
       ))}
     </div>
