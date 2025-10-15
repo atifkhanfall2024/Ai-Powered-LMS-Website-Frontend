@@ -111,7 +111,7 @@ const HandleThumb = (e)=>{
              
             Add detail information regarding course
           </h2>
-          <button className="bg-black text-white text-sm px-4 py-2 rounded-md hover:bg-gray-800" onClick={()=> navigate('/lectures')}>
+          <button className="bg-black text-white text-sm px-4 py-2 rounded-md hover:bg-gray-800" onClick={()=> navigate(`/lectures/${id}`)}>
             Go to lectures page
           </button>
         </div>

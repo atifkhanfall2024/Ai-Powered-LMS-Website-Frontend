@@ -22,6 +22,8 @@ const toggleCategory = (e) => {
  // now filter those one which checked
 
 const applydata = ()=>{
+
+    // use for copy data
     let copydata = courses?.slice()
       if(category.length>0){
         copydata = copydata.filter(c=>category.includes(c.course_Category))
@@ -37,7 +39,7 @@ const applydata = ()=>{
     applydata()
    } ,[category])
 
-   console.log( applyfilter);
+   //console.log( applyfilter);
 
   const PublishedApi = async()=>{
 
@@ -101,15 +103,15 @@ const applydata = ()=>{
           <span>cyber-security</span>
         </label>
         <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" onChange={toggleCategory} value='Artificial Intelligence' className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='artificial-intelligence' className="text-blue-500" />
           <span>Artificial Intelligence</span>
         </label>
           <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" onChange={toggleCategory} value='Graphic Designing' className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='graphic-design' className="text-blue-500" />
           <span>Graphic Designing</span>
         </label>
           <label className="flex items-center space-x-2 cursor-pointer">
-          <input type="radio" name="category" onChange={toggleCategory} value='Cloud Computing' className="text-blue-500" />
+          <input type="radio" name="category" onChange={toggleCategory} value='cloud-computing' className="text-blue-500" />
           <span>cloud-computing</span>
         </label>
           <label className="flex items-center space-x-2 cursor-pointer">

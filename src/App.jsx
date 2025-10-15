@@ -46,7 +46,7 @@ function App() {
           <Route path='/create/courses' element={user?.role==="educator"?<Courses/>: <Navigate to={'/feed'} />} />
             <Route path='/create/course' element={user?.role==="educator"?<Create_Courses/>: <Navigate to={'/feed'} />} />
               <Route path='/edit/course/:id' element={user?.role==="educator"?<EditCourses/>: <Navigate to={'/feed'} />} />
-                 <Route path='/lectures' element={user?.role==="educator"?<Lectures/>: <Navigate to={'/feed'} />} />
+                 <Route path='/lectures/:courseid' element={user?.role==="educator"?<Lectures/>: <Navigate to={'/feed'} />} />
           
     </Route>
    </Routes>
