@@ -30,6 +30,7 @@ const Lectures = ()=>{
     try{
         const res = await axios.post(BaseUrl+'/create/lecture/'+courseid , {title} , {withCredentials:true})
         //setcreatecourse(res?.data)
+      
         setLoading(false)
         settitle('')
         toast.success('Create Lecture Success')

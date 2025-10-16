@@ -6,7 +6,9 @@ const ViewDetailCourse = ()=>{
 
     const {courseid} = useParams()
     const [selectedcourse , setselectedcourse] = useState()
-    const courses = useSelector(store=>store.course)
+    const [addcourse , setAddcourse] = useState([])
+    const lectures = useSelector(store=>store?.Lectures)
+    const courses = useSelector(store=>store?.course)
 
   useEffect(() => {
     const course = courses.find((c) => c._id === courseid);
@@ -15,7 +17,18 @@ const ViewDetailCourse = ()=>{
     }
   }, [courseid, courses]);
 
-console.log(selectedcourse);
+  // for lectures also 
+
+  useEffect(() => {
+    if (selectedcourse?.Lectures?.length && lectures?.length) {
+      const matchedLectures = lectures.filter((l) =>
+        selectedcourse.Lectures.includes(l._id)
+      );
+      console.log("Matched Lectures:", matchedLectures);
+      setAddcourse(matchedLectures); // ✅ store in state
+    }
+  }, [selectedcourse, lectures]);
+
 
 
     return (
@@ -45,7 +58,7 @@ console.log(selectedcourse);
           </div>
 
           <div className="text-2xl font-bold mb-4">
-            399 <span className="text-gray-400 line-through text-lg ml-2">599</span>
+           PKR : {selectedcourse?.course_price} <span className="text-gray-400 line-through text-lg ml-2">5999</span>
           </div>
 
           <ul className="mb-5 space-y-1 text-sm text-gray-600">
@@ -53,7 +66,7 @@ console.log(selectedcourse);
             <li>✅ Lifetime access to course materials</li>
           </ul>
 
-          <button className="bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">
+          <button className="bg-black text-white px-6 py-2 rounded-md hover:bg-green-700">
             Enroll Now
           </button>
         </div>
@@ -63,7 +76,7 @@ console.log(selectedcourse);
       <div className="max-w-5xl mx-auto mt-10">
         <h3 className="text-xl font-semibold mb-3">What You’ll Learn</h3>
         <ul className="list-disc list-inside text-gray-700">
-          <li>Learn AI Tools from Beginning</li>
+          {selectedcourse?.descriptions}
         </ul>
       </div>
 
@@ -79,17 +92,40 @@ console.log(selectedcourse);
       <div className="max-w-5xl mx-auto mt-8">
         <h3 className="text-xl font-semibold mb-3">Who This Course Is For</h3>
         <p className="text-gray-700">
-          Beginners, aspiring developers, and professionals looking to upgrade skills.
+           {selectedcourse?.course_level}, aspiring developers, and professionals looking to upgrade skills.
         </p>
       </div>
 
       {/* Curriculum */}
-      <div className="max-w-5xl mx-auto mt-8">
-        <h3 className="text-xl font-semibold mb-3">Course Curriculum</h3>
-        <div className="border rounded-lg p-4 bg-gray-50">
-          <p>1 Lecture</p>
-        </div>
+       <div className="border rounded-lg p-4 bg-gray-50">
+  {addcourse.length > 0 ? (
+    addcourse.map((lecture) => (
+      <div key={lecture._id} className="p-3 border rounded-md mb-2 bg-white shadow-sm">
+        <h3 className="font-semibold text-lg">{lecture.title}</h3>
+        <p className="text-sm text-gray-600 mb-2">
+          {lecture.isFree ? "Free Lecture" : "Paid Lecture"}
+        </p>
+
+        {/* ✅ Video URL Section */}
+        {lecture.VedioUrl ? (
+          <a
+            href={lecture.VedioUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 underline text-sm"
+          >
+            Watch Lecture Video
+          </a>
+        ) : (
+          <p className="text-gray-400 text-sm italic">No video available</p>
+        )}
       </div>
+    ))
+  ) : (
+    <p className="text-gray-500">No lectures available yet.</p>
+  )}
+</div>
+
     </div>
   );
 }

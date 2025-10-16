@@ -9,12 +9,9 @@ const LectureSlice = createSlice({
          return  actions.payload
         },
 
-        RemoveLecture:(state , actions)=>{
-              return null
-        }
     }
 })
 
 
-export const {AddLectures , RemoveLecture} = LectureSlice.actions
+export const {AddLectures } = LectureSlice.actions
 export default LectureSlice.reducer
