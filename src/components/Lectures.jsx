@@ -95,7 +95,7 @@ const Lectures = ()=>{
   {Addcourse.map((c , index)=>(
     <div key={index} className="flex justify-between items-center bg-gray-100 px-4 py-3 gap-2 rounded-lg">
       <p className="text-gray-800 font-medium">Lecture - { index+1 } : { c.title }</p>
-      <button className="text-gray-700 hover:text-black cursor-pointer text-2xl">✎</button>
+      <button className="text-gray-700 hover:text-black cursor-pointer text-2xl" onClick={()=>navigate(`/editlectures/${courseid}/${c._id}`)}>✎</button>
     </div>
   ))}
 </div>

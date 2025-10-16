@@ -20,6 +20,7 @@ import GetCreatorCourses from './CustomHooks/GetCreatorCourses'
 import EditCourses from './components/EditCourses'
 import Lectures from './components/Lectures'
 import ViewCourses from './components/ViewCourses'
+import EditLectures from './components/EditLectures'
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
             <Route path='/create/course' element={user?.role==="educator"?<Create_Courses/>: <Navigate to={'/feed'} />} />
               <Route path='/edit/course/:id' element={user?.role==="educator"?<EditCourses/>: <Navigate to={'/feed'} />} />
                  <Route path='/lectures/:courseid' element={user?.role==="educator"?<Lectures/>: <Navigate to={'/feed'} />} />
+                  <Route path='/editlectures/:courseid/:lectureid' element={user?.role==="educator"?<EditLectures/>: <Navigate to={'/feed'} />} />
           
     </Route>
    </Routes>
