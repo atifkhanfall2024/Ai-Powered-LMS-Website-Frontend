@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 const Cards = ({ data }) => {
 
       const rating = data.rating || 0;
+      const navigate = useNavigate()
 
   // Convert rating into full, half, and empty stars
   const stars = Array.from({ length: 5 }, (_, i) => {
@@ -12,6 +15,7 @@ const Cards = ({ data }) => {
   return (
    <div className="w-64 h-64 bg-white rounded-xl shadow-md p-4 flex flex-col items-center justify-between hover:scale-105 transition">
   <img
+   onClick={()=> navigate(`/viewDetail/${data?._id}`)}
     alt="profile"
     src={data?.course_Thumbnails || "https://via.placeholder.com/150"}
     className="w-full h-32 object-cover rounded-lg"

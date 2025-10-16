@@ -129,6 +129,7 @@ const applydata = ()=>{
       className="w-64 h-64 bg-white rounded-xl shadow-md p-4 flex flex-col justify-between hover:scale-105 transition"
     >
       <img
+        onClick={()=> navigate(`/viewDetail/${c?._id}`)}
         src={c.course_Thumbnails}
         alt="Course"
         className="w-full h-32 object-cover rounded-lg"

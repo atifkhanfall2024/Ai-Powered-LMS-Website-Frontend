@@ -21,6 +21,7 @@ import EditCourses from './components/EditCourses'
 import Lectures from './components/Lectures'
 import ViewCourses from './components/ViewCourses'
 import EditLectures from './components/EditLectures'
+import ViewDetailCourse from './components/ViewDetailCourse'
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
           <Route path='/profile' element={<Profile/>} />
           <Route path='/editprofile' element={<EditProfile/>} />
           <Route path='/view/courses' element={<ViewCourses/>} />
+          <Route path='/viewDetail/:courseid' element={<ViewDetailCourse/>} />
           <Route path='/dash' element={user?.role==="educator"?<DashBoard/>: <Navigate to={'/feed'} />} />
           <Route path='/create/courses' element={user?.role==="educator"?<Courses/>: <Navigate to={'/feed'} />} />
             <Route path='/create/course' element={user?.role==="educator"?<Create_Courses/>: <Navigate to={'/feed'} />} />

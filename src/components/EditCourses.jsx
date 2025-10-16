@@ -15,7 +15,7 @@ const EditCourses = () => {
     const {id} = useParams()
     const [isPublished , setisPublished] = useState(false)
     const [course_title ,  setcourse_title] = useState('')
-    const [course_subtitle ,  setcourse_subtitle] = useState('')
+    const [course_subTitle ,  setcourse_subtitle] = useState('')
     const [course_Category , setcourse_Category] = useState('')
     const [course_level , setcourse_level] = useState('')
     const [description , setDescription] = useState('')
@@ -32,7 +32,16 @@ const EditCourses = () => {
            
             const res = await axios.get(`${BaseUrl}/getcourse/${id}`, {withCredentials:true})
             console.log(res?.data);
+            const data = res?.data
               dispatch(addSingleUser(res?.data))
+                 setcourse_title(data.course_title || '');
+    setcourse_subtitle(data.course_subTitle || '');
+    setcourse_Category(data.course_Category || '');
+    setcourse_level(data.course_level || '');
+    setDescription(data.description || '');
+    setcourse_price(data.course_price || '');
+    setisPublished(data.isPublished || false);
+    setfrontendimg(data.course_Thumbnails || '');
         }catch(err){
               console.log(err?.message);
         }
@@ -61,7 +70,7 @@ const HandleThumb = (e)=>{
     formData.append('course_Category' , course_Category)
     formData.append( 'course_Thumbnails' , course_Thumbnails)
     formData.append('course_level' , course_level)
-    formData.append('course_subtitle' , course_subtitle)
+    formData.append('course_subTitle' , course_subTitle)
     formData.append('course_price' , course_price)
     formData.append('description' , description)
     formData.append( 'isPublished', isPublished)
@@ -143,7 +152,7 @@ const HandleThumb = (e)=>{
           <input
             type="text"
             placeholder="Subtitle"
-             value={course_subtitle}
+             value={course_subTitle}
             onChange={(e)=>setcourse_subtitle(e.target.value)}
             className="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
@@ -177,9 +186,9 @@ const HandleThumb = (e)=>{
       onChange={(e)=>setcourse_level(e.target.value)}
     >
        <option value="">Select Level</option>
-      <option value="web-development">Beginner</option>
-      <option value="mobile-development">Intermediate</option>
-      <option value="data-science">Advanced</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
    
     </select>
             <input
